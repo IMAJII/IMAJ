@@ -6,22 +6,17 @@
   <title>IMAJ</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 2rem;
       font-family: 'Georgia', serif;
       background-color: #fdfcf9;
       color: #2c2c2c;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
     header {
-      background-color: #222;
-      color: #fff;
-      padding: 2rem;
       text-align: center;
-    }
-    h1 {
-      margin: 0;
-      font-size: 3rem;
-      letter-spacing: 0.1em;
+      margin-bottom: 2rem;
     }
     nav {
       display: flex;
@@ -29,259 +24,34 @@
       gap: 2rem;
       background-color: #eee;
       padding: 1rem;
+      margin-bottom: 2rem;
     }
     nav a {
       text-decoration: none;
       color: #333;
       font-weight: bold;
+      font-size: 1.1rem;
     }
-    main {
-      padding: 2rem;
-      max-width: 800px;
-      margin: auto;
-    }
-    article {
-      margin-bottom: 3rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid #ccc;
-    }
-    article h2 {
-      margin-bottom: 0.5rem;
-      font-size: 1.8rem;
-    }
-    article p {
+    p {
       line-height: 1.6;
-    }
-    .diary-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .diary-form textarea {
-      width: 100%;
-      height: 150px;
-      padding: 1rem;
-      font-size: 1rem;
-      font-family: inherit;
-    }
-    .diary-form button {
-      align-self: flex-start;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      background-color: #444;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    .diary-entries {
-      margin-top: 2rem;
-    }
-    .diary-entry {
-      background-color: #f0f0f0;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-left: 4px solid #333;
-    }
-    .music-embed {
-      margin-top: 1rem;
-    }
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #777;
-      margin-top: 4rem;
-      padding: 2rem;
-      background-color: #f0f0f0;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>IMAJ</h1>
-    <p>Beynindeki imajı irdele</p>
   </header>
   <nav>
-    <a href="#gunluk">Günlükler</a>
-    <a href="#denemeler">Denemeler</a>
-    <a href="#test">Test</a>
-    <a href="#iletisim">İletişim</a>
+    <a href="gunluk.html">Günlükler</a>
+    <a href="denemeler.html">Denemeler</a>
+    <a href="test.html">Test</a>
   </nav>
   <main>
-    <section id="imaj-nedir">
-      <article>
-        <h2>İmaj Nedir?</h2>
-        <p>İmaj, zihninde şekillenen soyut kavramların gerçek gibi hissettirmesi ve bunun dışarıya yansıtma isteğidir.</p>
-      </article>
-    </section>
-    <section id="gunluk">
-      <article>
-        <h2>Günlükler</h2>
-        <p>Günlükler, aslında yaşadığın deneyimleri paylaşman için senin için açılmış bir defterdir. Tabi ki bu proje katkı sağlaması açısından değerlendirilir ve senin gibi imajını yansıtanların deneyimlerini seninle paylaşmasına olanak sağlar.</p>
-        <form class="diary-form" onsubmit="addEntry(event)">
-          <textarea id="diaryInput" placeholder="Bugün aklından geçenleri yaz..."></textarea>
-          <button type="submit">Kaydet</button>
-        </form>
-        <div class="diary-entries" id="entriesContainer"></div>
-      </article>
-    </section>
-    <section id="denemeler">
-      <article>
-        <h2>Denemeler / Müzikler</h2>
-        <p>Buraya kendi müziklerinizi SoundCloud linkiyle paylaşabilirsiniz.</p>
-        <div class="music-embed">
-          <iframe
-            width="100%"
-            height="166"
-            scrolling="no"
-            frameborder="no"
-            allow="autoplay"
-            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123456789&color=%230066cc&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false"
-          ></iframe>
-          <p>Yukarıdaki çalar örnektir. Kendi SoundCloud parçanı eklemek istersen bağlantıyı bana ver.</p>
-        </div>
-      </article>
-    </section>
-    <section id="test">
-      <article>
-        <h2>Test</h2>
-        <p>Test bölümü, bu durumu en gün yüzüne çıkaracak olan soruların sorulduğu ve gizemli bir konuyu keşfetmemize olanak sağlayacak bir alan olacak.</p>
-        <div id="test-container">
-          <button id="startTestBtn">Testi Başlat</button>
-          <div id="questionContainer" style="display:none; margin-top:1rem;">
-            <p id="questionText"></p>
-            <div id="answersContainer"></div>
-            <button id="nextQuestionBtn" style="margin-top:1rem;">Sonraki Soru</button>
-          </div>
-          <div id="resultContainer" style="display:none; margin-top:1rem;">
-            <h3>Test Sonucu</h3>
-            <p id="scoreText"></p>
-            <button id="restartTestBtn">Tekrar Başlat</button>
-          </div>
-        </div>
-      </article>
-    </section>
-    <section id="iletisim">
-      <article>
-        <h2>İletişim</h2>
-        <p>Bana ulaşmak istersen: <a href="mailto:bozdaozan@gmail.com">bozdaozan@gmail.com</a></p>
-        <p>
-          <a href="https://open.spotify.com/intl-tr/artist/7ed4ftsMWHTLW9Y5ZaUKEA?si=68PEGJInT42xJd_0SZRdcw" target="_blank"
-            >Spotify</a
-          >
-        </p>
-      </article>
-    </section>
+    <p>İmaj zihninde şekillenen soyut kavramların gerçek gibi hissetirmesi ve bunun dışarıya yansıtma isteğidir.</p>
+    <p>Günlükler, aslında yaşadığın deneyimleri paylaşman için senin için açılmış bir defter, tabi ki bu projeye katkı sağlaması açışsından değerlendirilir ve senin gibi imajını yansıtanların deneyimlerini seninle paylaşır.</p>
+    <p>Test bölümü bu durumu en gün yüzüne çıkarıcak olan soruların sorulduğu ve gizemli bir konuyu keşfetmemize olanak sağlıcak.</p>
   </main>
-  <footer>
-    <p>&copy; 2025 IMaj - Tüm hakları saklıdır.</p>
-  </footer>
-  <script>
-    function addEntry(event) {
-      event.preventDefault();
-      const input = document.getElementById("diaryInput");
-      const text = input.value.trim();
-      if (!text) return;
-      const container = document.getElementById("entriesContainer");
-      const entry = document.createElement("div");
-      entry.className = "diary-entry";
-      entry.textContent = text;
-      container.prepend(entry);
-      input.value = "";
-    }
-
-    const questions = [];
-    let currentQuestionIndex = 0;
-    let score = 0;
-
-    const startTestBtn = document.getElementById("startTestBtn");
-    const questionContainer = document.getElementById("questionContainer");
-    const questionText = document.getElementById("questionText");
-    const answersContainer = document.getElementById("answersContainer");
-    const nextQuestionBtn = document.getElementById("nextQuestionBtn");
-    const resultContainer = document.getElementById("resultContainer");
-    const scoreText = document.getElementById("scoreText");
-    const restartTestBtn = document.getElementById("restartTestBtn");
-
-    startTestBtn.addEventListener("click", startTest);
-    nextQuestionBtn.addEventListener("click", nextQuestion);
-    restartTestBtn.addEventListener("click", restartTest);
-
-    function startTest() {
-      startTestBtn.style.display = "none";
-      resultContainer.style.display = "none";
-      questionContainer.style.display = "block";
-      currentQuestionIndex = 0;
-      score = 0;
-      showQuestion();
-    }
-
-    function showQuestion() {
-      clearAnswers();
-      const currentQuestion = questions[currentQuestionIndex];
-      if (!currentQuestion) {
-        showResult();
-        return;
-      }
-      questionText.textContent = currentQuestion.question;
-      currentQuestion.answers.forEach((answer, index) => {
-        const btn = document.createElement("button");
-        btn.textContent = answer;
-        btn.style.display = "block";
-        btn.style.margin = "0.5rem 0";
-        btn.onclick = () => selectAnswer(index);
-        answersContainer.appendChild(btn);
-      });
-      nextQuestionBtn.style.display = "none";
-    }
-
-    function clearAnswers() {
-      while (answersContainer.firstChild) {
-        answersContainer.removeChild(answersContainer.firstChild);
-      }
-    }
-
-    let answered = false;
-
-    function selectAnswer(selectedIndex) {
-      if (answered) return;
-      answered = true;
-      const currentQuestion = questions[currentQuestionIndex];
-      if (selectedIndex === currentQuestion.correct) {
-        score++;
-      }
-      Array.from(answersContainer.children).forEach((btn, idx) => {
-        btn.disabled = true;
-        if (idx === currentQuestion.correct) {
-          btn.style.backgroundColor = "#4CAF50";
-          btn.style.color = "white";
-        } else if (idx === selectedIndex) {
-          btn.style.backgroundColor = "#f44336";
-          btn.style.color = "white";
-        }
-      });
-      nextQuestionBtn.style.display = "inline-block";
-    }
-
-    function nextQuestion() {
-      answered = false;
-      currentQuestionIndex++;
-      if (currentQuestionIndex < questions.length) {
-        showQuestion();
-      } else {
-        showResult();
-      }
-    }
-
-    function showResult() {
-      questionContainer.style.display = "none";
-      resultContainer.style.display = "block";
-      scoreText.textContent = `Doğru cevap sayısı: ${score} / ${questions.length}`;
-      startTestBtn.style.display = "none";
-    }
-
-    function restartTest() {
-      resultContainer.style.display = "none";
-      startTestBtn.style.display = "inline-block";
-    }
-  </
+</body>
+</html>
