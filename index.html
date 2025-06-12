@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Beynindeki İmaj</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IMAJ</title>
   <style>
     body {
       margin: 0;
@@ -98,8 +98,8 @@
 </head>
 <body>
   <header>
-    <h1>Beynindeki İmaj</h1>
-    <p>Beynindeki İmajı İrdele</p>
+    <h1>IMAJ</h1>
+    <p>Beynindeki imajı irdele</p>
   </header>
   <nav>
     <a href="#gunluk">Günlükler</a>
@@ -108,9 +108,16 @@
     <a href="#iletisim">İletişim</a>
   </nav>
   <main>
+    <section id="imaj-nedir">
+      <article>
+        <h2>İmaj Nedir?</h2>
+        <p>İmaj, zihninde şekillenen soyut kavramların gerçek gibi hissettirmesi ve bunun dışarıya yansıtma isteğidir.</p>
+      </article>
+    </section>
     <section id="gunluk">
       <article>
-        <h2>Günlüğünü Oluştur</h2>
+        <h2>Günlükler</h2>
+        <p>Günlükler, aslında yaşadığın deneyimleri paylaşman için senin için açılmış bir defterdir. Tabi ki bu proje katkı sağlaması açısından değerlendirilir ve senin gibi imajını yansıtanların deneyimlerini seninle paylaşmasına olanak sağlar.</p>
         <form class="diary-form" onsubmit="addEntry(event)">
           <textarea id="diaryInput" placeholder="Bugün aklından geçenleri yaz..."></textarea>
           <button type="submit">Kaydet</button>
@@ -123,37 +130,51 @@
         <h2>Denemeler / Müzikler</h2>
         <p>Buraya kendi müziklerinizi SoundCloud linkiyle paylaşabilirsiniz.</p>
         <div class="music-embed">
-          <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123456789&color=%230066cc&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false">
-          </iframe>
+          <iframe
+            width="100%"
+            height="166"
+            scrolling="no"
+            frameborder="no"
+            allow="autoplay"
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123456789&color=%230066cc&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false"
+          ></iframe>
           <p>Yukarıdaki çalar örnektir. Kendi SoundCloud parçanı eklemek istersen bağlantıyı bana ver.</p>
         </div>
       </article>
     </section>
     <section id="test">
-      <h2>Test</h2>
-      <div id="test-container">
-        <button id="startTestBtn">Testi Başlat</button>
-        <div id="questionContainer" style="display:none; margin-top:1rem;">
-          <p id="questionText"></p>
-          <div id="answersContainer"></div>
-          <button id="nextQuestionBtn" style="margin-top:1rem;">Sonraki Soru</button>
+      <article>
+        <h2>Test</h2>
+        <p>Test bölümü, bu durumu en gün yüzüne çıkaracak olan soruların sorulduğu ve gizemli bir konuyu keşfetmemize olanak sağlayacak bir alan olacak.</p>
+        <div id="test-container">
+          <button id="startTestBtn">Testi Başlat</button>
+          <div id="questionContainer" style="display:none; margin-top:1rem;">
+            <p id="questionText"></p>
+            <div id="answersContainer"></div>
+            <button id="nextQuestionBtn" style="margin-top:1rem;">Sonraki Soru</button>
+          </div>
+          <div id="resultContainer" style="display:none; margin-top:1rem;">
+            <h3>Test Sonucu</h3>
+            <p id="scoreText"></p>
+            <button id="restartTestBtn">Tekrar Başlat</button>
+          </div>
         </div>
-        <div id="resultContainer" style="display:none; margin-top:1rem;">
-          <h3>Test Sonucu</h3>
-          <p id="scoreText"></p>
-          <button id="restartTestBtn">Tekrar Başlat</button>
-        </div>
-      </div>
+      </article>
     </section>
     <section id="iletisim">
-      <h2>İletişim</h2>
-      <p>Bana ulaşmak istersen: <a href="mailto:bozdaozan@gmail.com">bozdaozan@gmail.com</a></p>
-      <p><a href="https://open.spotify.com/intl-tr/artist/7ed4ftsMWHTLW9Y5ZaUKEA?si=68PEGJInT42xJd_0SZRdcw" target="_blank">Spotify</a></p>
+      <article>
+        <h2>İletişim</h2>
+        <p>Bana ulaşmak istersen: <a href="mailto:bozdaozan@gmail.com">bozdaozan@gmail.com</a></p>
+        <p>
+          <a href="https://open.spotify.com/intl-tr/artist/7ed4ftsMWHTLW9Y5ZaUKEA?si=68PEGJInT42xJd_0SZRdcw" target="_blank"
+            >Spotify</a
+          >
+        </p>
+      </article>
     </section>
   </main>
   <footer>
-    <p>&copy; 2025 Beynindeki İmaj - Tüm hakları saklıdır.</p>
+    <p>&copy; 2025 IMaj - Tüm hakları saklıdır.</p>
   </footer>
   <script>
     function addEntry(event) {
@@ -263,6 +284,4 @@
       resultContainer.style.display = "none";
       startTestBtn.style.display = "inline-block";
     }
-  </script>
-</body>
-</html>
+  </
