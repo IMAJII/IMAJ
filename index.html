@@ -123,7 +123,6 @@
         <h2>Denemeler / Müzikler</h2>
         <p>Buraya kendi müziklerinizi SoundCloud linkiyle paylaşabilirsiniz.</p>
         <div class="music-embed">
-          <!-- Örnek bir SoundCloud embed -->
           <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
             src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123456789&color=%230066cc&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false">
           </iframe>
@@ -133,7 +132,19 @@
     </section>
     <section id="test">
       <h2>Test</h2>
-      <p>Sorular buraya eklenecek...</p>
+      <div id="test-container">
+        <button id="startTestBtn">Testi Başlat</button>
+        <div id="questionContainer" style="display:none; margin-top:1rem;">
+          <p id="questionText"></p>
+          <div id="answersContainer"></div>
+          <button id="nextQuestionBtn" style="margin-top:1rem;">Sonraki Soru</button>
+        </div>
+        <div id="resultContainer" style="display:none; margin-top:1rem;">
+          <h3>Test Sonucu</h3>
+          <p id="scoreText"></p>
+          <button id="restartTestBtn">Tekrar Başlat</button>
+        </div>
+      </div>
     </section>
     <section id="iletisim">
       <h2>İletişim</h2>
@@ -150,120 +161,108 @@
       const input = document.getElementById("diaryInput");
       const text = input.value.trim();
       if (!text) return;
-
       const container = document.getElementById("entriesContainer");
       const entry = document.createElement("div");
       entry.className = "diary-entry";
       entry.textContent = text;
       container.prepend(entry);
-
       input.value = "";
+    }
+
+    const questions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const startTestBtn = document.getElementById("startTestBtn");
+    const questionContainer = document.getElementById("questionContainer");
+    const questionText = document.getElementById("questionText");
+    const answersContainer = document.getElementById("answersContainer");
+    const nextQuestionBtn = document.getElementById("nextQuestionBtn");
+    const resultContainer = document.getElementById("resultContainer");
+    const scoreText = document.getElementById("scoreText");
+    const restartTestBtn = document.getElementById("restartTestBtn");
+
+    startTestBtn.addEventListener("click", startTest);
+    nextQuestionBtn.addEventListener("click", nextQuestion);
+    restartTestBtn.addEventListener("click", restartTest);
+
+    function startTest() {
+      startTestBtn.style.display = "none";
+      resultContainer.style.display = "none";
+      questionContainer.style.display = "block";
+      currentQuestionIndex = 0;
+      score = 0;
+      showQuestion();
+    }
+
+    function showQuestion() {
+      clearAnswers();
+      const currentQuestion = questions[currentQuestionIndex];
+      if (!currentQuestion) {
+        showResult();
+        return;
+      }
+      questionText.textContent = currentQuestion.question;
+      currentQuestion.answers.forEach((answer, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = answer;
+        btn.style.display = "block";
+        btn.style.margin = "0.5rem 0";
+        btn.onclick = () => selectAnswer(index);
+        answersContainer.appendChild(btn);
+      });
+      nextQuestionBtn.style.display = "none";
+    }
+
+    function clearAnswers() {
+      while (answersContainer.firstChild) {
+        answersContainer.removeChild(answersContainer.firstChild);
+      }
+    }
+
+    let answered = false;
+
+    function selectAnswer(selectedIndex) {
+      if (answered) return;
+      answered = true;
+      const currentQuestion = questions[currentQuestionIndex];
+      if (selectedIndex === currentQuestion.correct) {
+        score++;
+      }
+      Array.from(answersContainer.children).forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === currentQuestion.correct) {
+          btn.style.backgroundColor = "#4CAF50";
+          btn.style.color = "white";
+        } else if (idx === selectedIndex) {
+          btn.style.backgroundColor = "#f44336";
+          btn.style.color = "white";
+        }
+      });
+      nextQuestionBtn.style.display = "inline-block";
+    }
+
+    function nextQuestion() {
+      answered = false;
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      questionContainer.style.display = "none";
+      resultContainer.style.display = "block";
+      scoreText.textContent = `Doğru cevap sayısı: ${score} / ${questions.length}`;
+      startTestBtn.style.display = "none";
+    }
+
+    function restartTest() {
+      resultContainer.style.display = "none";
+      startTestBtn.style.display = "inline-block";
     }
   </script>
 </body>
 </html>
-<script>
-  // Daha önceki addEntry fonksiyonu burada kalsın.
-
-  const questions = [
-    // Şimdilik boş, soruları sonra ekleyebiliriz
-    // Örnek: 
-    // { question: "Türkiye'nin başkenti neresidir?", answers: ["İstanbul", "Ankara", "İzmir"], correct: 1 }
-  ];
-
-  let currentQuestionIndex = 0;
-  let score = 0;
-
-  const startTestBtn = document.getElementById("startTestBtn");
-  const questionContainer = document.getElementById("questionContainer");
-  const questionText = document.getElementById("questionText");
-  const answersContainer = document.getElementById("answersContainer");
-  const nextQuestionBtn = document.getElementById("nextQuestionBtn");
-  const resultContainer = document.getElementById("resultContainer");
-  const scoreText = document.getElementById("scoreText");
-  const restartTestBtn = document.getElementById("restartTestBtn");
-
-  startTestBtn.addEventListener("click", startTest);
-  nextQuestionBtn.addEventListener("click", nextQuestion);
-  restartTestBtn.addEventListener("click", restartTest);
-
-  function startTest() {
-    startTestBtn.style.display = "none";
-    resultContainer.style.display = "none";
-    questionContainer.style.display = "block";
-    currentQuestionIndex = 0;
-    score = 0;
-    showQuestion();
-  }
-
-  function showQuestion() {
-    clearAnswers();
-    const currentQuestion = questions[currentQuestionIndex];
-    if (!currentQuestion) {
-      // Sorular bitince sonucu göster
-      showResult();
-      return;
-    }
-    questionText.textContent = currentQuestion.question;
-    currentQuestion.answers.forEach((answer, index) => {
-      const btn = document.createElement("button");
-      btn.textContent = answer;
-      btn.style.display = "block";
-      btn.style.margin = "0.5rem 0";
-      btn.onclick = () => selectAnswer(index);
-      answersContainer.appendChild(btn);
-    });
-    nextQuestionBtn.style.display = "none";
-  }
-
-  function clearAnswers() {
-    while (answersContainer.firstChild) {
-      answersContainer.removeChild(answersContainer.firstChild);
-    }
-  }
-
-  let answered = false;
-
-  function selectAnswer(selectedIndex) {
-    if (answered) return;
-    answered = true;
-    const currentQuestion = questions[currentQuestionIndex];
-    if (selectedIndex === currentQuestion.correct) {
-      score++;
-    }
-    // Butonları renklendir
-    Array.from(answersContainer.children).forEach((btn, idx) => {
-      btn.disabled = true;
-      if (idx === currentQuestion.correct) {
-        btn.style.backgroundColor = "#4CAF50"; // doğru - yeşil
-        btn.style.color = "white";
-      } else if (idx === selectedIndex) {
-        btn.style.backgroundColor = "#f44336"; // yanlış - kırmızı
-        btn.style.color = "white";
-      }
-    });
-    nextQuestionBtn.style.display = "inline-block";
-  }
-
-  function nextQuestion() {
-    answered = false;
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-      showQuestion();
-    } else {
-      showResult();
-    }
-  }
-
-  function showResult() {
-    questionContainer.style.display = "none";
-    resultContainer.style.display = "block";
-    scoreText.textContent = `Doğru cevap sayısı: ${score} / ${questions.length}`;
-    startTestBtn.style.display = "none";
-  }
-
-  function restartTest() {
-    resultContainer.style.display = "none";
-    startTestBtn.style.display = "inline-block";
-  }
-</script>
